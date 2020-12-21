@@ -1,0 +1,118 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/style.css">
+	<title>Starter Template for Bootstrap</title>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-light bg-orinoco">
+		<a class="navbar-brand logo" href="#"><img src="images/orinoco-logo.png" alt="Logo de Orinoco"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lentilles</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown01" id="productVariant">
+						<a class="dropdown-item" href="#deck-teddies">Ours en peluche</a>
+						<a class="dropdown-item" href="#deck-cameras">Caméras</a>
+						<a class="dropdown-item" href="#deck-furniture">Meubles en bois</a>
+					</div>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>
+
+	<main role="main" class="container-fluid text-center bg-dark w-100 px-0 py-1 mx-0">
+		<section class="container-fluid px-0 bg-custom-cameras bg-primary" id="camerasView">
+			<!-- template productView -->
+		</section>
+
+
+		<template id="productsView">
+			<div class="row">
+				<h1 class="col-12 text-orinoco text-left" id="productTitle">Appareils photo</h1>
+			</div>
+			<div class="card-deck row py-5 container-fluid text-center mx-auto position-relative" id="deck">	
+				<!-- template productCard -->
+			</div>
+			
+		</template>
+
+		<template id="productCard">
+			<div class="card col-12 col-md-1 col-lg-1 mt-5 rounded-lg shadow p-1" id="card">
+				<img src="" alt="" class="card-img img-card" id="cardImg">
+				<div class="card-body" id="cardBody">
+					<h4 class="card-title" id="cardName"></h4>
+
+					<div class="collapse" id="cardCollapse">
+						<p class="card-text card-description overflow-auto" id="cardDescription"></p>
+						<div class="row"  id="productVariant">
+							
+						</div>
+						<p class="card-text font-weight-bold mt-5" id="cardPrice"></p>
+					</div>
+
+					<a href="" class="btn btn-outline-warning seeProduct position-relative" data-toggle="collapse" aria-expanded="false" id="cardShowMore"></a>
+
+				</div>
+
+				
+			</div>
+		</template>
+
+
+
+	</main><!-- /.container -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modalBody">
+					...
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Fermer</button>
+					<button type="button" class="btn btn-primary" id="addToCard">Ajouter au panier</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="page-footer bg-orinoco footer-light w-100">
+		<a href="#content">© 2020 .Orinoco</a>
+	</footer>
+    <!-- Bootstrap core JavaScript
+    	================================================== -->
+    	<!-- Placed at the end of the document so the pages load faster -->
+    	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    	<script src="dist/app.bundle.js"></script>
+    </body>
+    </html>
