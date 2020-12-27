@@ -4,7 +4,7 @@
 ;// CONCATENATED MODULE: ./js/modules/getProductData.js
 async function productData()
 {
-	const url = "http://192.168.1.113:3001/api/cameras/";
+	const url = "http://localhost:3001/api/cameras/";
 
 	const response = await fetch(url);
 	return response.json();
