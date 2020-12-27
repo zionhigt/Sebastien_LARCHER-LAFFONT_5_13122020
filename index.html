@@ -14,8 +14,24 @@
 	<title>Starter Template for Bootstrap</title>
 </head>
 
-<body>
+<body class="position-relative">
 
+	<button id="cartToggle" class="btn btn-info my-2 my-sm-0 fixed-top mr-1 ml-auto t-5 position-md-relative" type="button" data-target="#cartView" data-toggle="modal" aria-expanded="false">
+
+		<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart-fill btn-cart" viewBox="0 0 16 16">
+
+			<defs>
+				<linearGradient id="cartGradient" gradientTransform="rotate(15)">
+					<stop offset="5%" stop-color="#e08718" />
+					<stop offset="95%" stop-color="#8f5bfe" />
+				</linearGradient>
+			</defs>
+			<path stroke="#37474f" fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+		</svg>
+
+		<span id="howCountCart" class="bg-danger position-absolute">0</span>
+
+	</button>
 	<nav class="navbar navbar-expand-md navbar-light bg-orinoco">
 		<a class="navbar-brand logo" href="#"><img src="images/orinoco-logo.png" alt="Logo de Orinoco"></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,86 +42,156 @@
 			<ul class="navbar-nav mr-auto">
 
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lentilles</a>
+					<a class="nav-link dropdown-toggle" href="test.html" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lentilles</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown01" id="productVariant">
-						<a class="dropdown-item" href="#deck-teddies">Ours en peluche</a>
-						<a class="dropdown-item" href="#deck-cameras">Caméras</a>
-						<a class="dropdown-item" href="#deck-furniture">Meubles en bois</a>
+						
 					</div>
 				</li>
 			</ul>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
-			</form>
+			
+			
 		</div>
 	</nav>
-
-	<main role="main" class="container-fluid text-center bg-dark w-100 px-0 py-1 mx-0">
-		<section class="container-fluid px-0 bg-custom-cameras bg-primary" id="camerasView">
-			<!-- template productView -->
-		</section>
-
-
-		<template id="productsView">
-			<div class="row">
-				<h1 class="col-12 text-orinoco text-left" id="productTitle">Appareils photo</h1>
-			</div>
-			<div class="card-deck row py-5 container-fluid text-center mx-auto position-relative" id="deck">	
-				<!-- template productCard -->
-			</div>
-			
-		</template>
-
-		<template id="productCard">
-			<div class="card col-12 col-md-1 col-lg-1 mt-5 rounded-lg shadow p-1" id="card">
-				<img src="" alt="" class="card-img img-card" id="cardImg">
-				<div class="card-body" id="cardBody">
-					<h4 class="card-title" id="cardName"></h4>
-
-					<div class="collapse" id="cardCollapse">
-						<p class="card-text card-description overflow-auto" id="cardDescription"></p>
-						<div class="row"  id="productVariant">
-							
-						</div>
-						<p class="card-text font-weight-bold mt-5" id="cardPrice"></p>
-					</div>
-
-					<a href="" class="btn btn-outline-warning seeProduct position-relative" data-toggle="collapse" aria-expanded="false" id="cardShowMore"></a>
-
-				</div>
-
-				
-			</div>
-		</template>
-
-
-
-	</main><!-- /.container -->
-
 	<!-- Modal -->
-	<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+
+</div><!-- modal-content -->
+</div><!-- modal-dialog -->
+</div><!-- modal -->
+<main role="main" class="bg-primary w-auto px-0 py-1 mx-0 row">
+
+	<aside class="modal fade" id="cartView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content">
+
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<h1 class="modal-title" id="myModalLabel">Mon panier</h1>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body" id="modalBody">
-					...
+
+				<div class="modal-body">
+					<div class="container" id="cartProducts">
+						<span class="font-weight-bold text-center bg-dark text-orinoco my-5 d-block">Votre panier est vide!</span>
+					</div>
+					
+					
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Fermer</button>
-					<button type="button" class="btn btn-primary" id="addToCard">Ajouter au panier</button>
+
+
+					<button data-dismiss="modal" type="button" class="btn btn-outline-dark ml-2 mr-auto" aria-label="Close">
+						<span aria-hidden="true">Fermer</span>
+					</button>
+					
+					<p id="cartTotal" class="font-weight-bold col-4"></p>
+
+					<button  type="button" class="btn btn-custom-cameras" aria-label="Close">
+						<span aria-hidden="true">Valider ma commande</span>
+					</button>
+				</div>
+
+			</div><!-- modal-content -->
+		</div><!-- modal-dialog -->
+	</aside><!-- modal -->
+
+	<section class="px-0 bg-dark col-12 col-md-auto w-100" id="camerasView">
+
+		<!-- template productView -->
+	</section>
+
+	<template id="alertBox">
+		<div class="alert text-orinoco alert-dismissible fade fixed-top" role="alert" id="alertContainer">
+			<strong id="alertName"></strong><span id="alertMessage"></span>
+			<a class=" stretched-link" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true" class="close text-orinoco">&times;</span>
+			</a>
+		</div>
+	</template>
+
+	<template id="cardCartView">
+		<div class="card-cart card col-12">
+			<div class="card-body">
+				<div class="card-title">
+					<h3 id="cardCartName" class="text-orinoco mx-auto w-100">
+
+					</h3>
+				</div>
+
+				<div class="card-text">
+					<p id="cardCartDescription"></p>
+					<p id="cardCartPrice" class="font-weight-bold"></p>
+					<div class="row">
+						<input type="number" min="1" max="10" id="quantityIncrement" value="1" class="ml-3"/>
+						<button type="button" class="btn btn-warning h-100 col-6 ml-3" aria-label="Close" id="removeToCart">
+							Enlever tout.
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<footer class="page-footer bg-orinoco footer-light w-100">
-		<a href="#content">© 2020 .Orinoco</a>
-	</footer>
+	</template>
+
+	<template id="productsView">
+		<div class="row">
+			<h1 class="col-12 text-orinoco text-left" id="productTitle">Appareils photo</h1>
+		</div>
+		<div class="card-deck row py-5 container-fluid text-center mx-auto position-relative" id="deck">	
+			<!-- template productCard -->
+		</div>
+
+	</template>
+
+	<template id="productCard">
+		<div class="card card-main col-12 col-md-1 col-lg-1 mt-5 mx-auto rounded-lg shadow p-1" id="card">
+			<img src="" alt="" class="card-img img-card" id="cardImg">
+			<div class="card-body" id="cardBody">
+				<h4 class="card-title" id="cardName"></h4>
+
+				<a  class="btn btn-outline-warning seeProduct stretched-link" data-toggle="modal" aria-expanded="false" id="cardShowMore" data-target="#selectedModalBox"></a>
+
+			</div>
+
+
+		</div>
+	</template>
+
+	<template id="modalBox">
+		<div class="modal fade overflow-x-hidden" id="selectedModalBox" tabindex="-1" role="dialog" aria-labelledby="selectedProductTitle" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header row px-0 mx-auto w-100">
+						<h5 class="modal-title col-10 ml-1 mb-1" id="selectedModalTitle"></h5>
+
+						<img src="" alt="" class="modal-img w-100 col-12 px-0" id="modalImg">
+					</div>
+					<div class="modal-body" id="selectedProductBody">
+						<div class="modal-text text-dark" id="modalDescription"></div>
+					</div>
+					<div class="modal-footer">
+						<div class="modal-text font-weight-bold" id="modalPrice"></div>
+						<label id="labelProductVariant" for="#productVariant" class="modal-text col-12 text-custom-cameras">Autres objectifs pour cet appareil</label>
+						<select class="row form-control mb-1"  id="productVariant">
+
+						</select>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">Fermer</span>
+						</button>
+						<button id="addToCartBtn" type="button" class="btn btn-warning text-dark" data-dismiss="modal">Ajouter l'article à mon panier</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</template>
+
+
+
+</main><!-- /.container -->
+
+<!-- Modal -->
+<footer class="page-footer bg-orinoco footer-light w-100">
+	<a href="#content">© 2020 .Orinoco</a>
+</footer>
     <!-- Bootstrap core JavaScript
     	================================================== -->
     	<!-- Placed at the end of the document so the pages load faster -->
