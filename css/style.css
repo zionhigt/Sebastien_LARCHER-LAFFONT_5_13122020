@@ -67,11 +67,14 @@ main h1::after {
 }
 
 #cartToggle {
-  top: calc(50vh - 10vw);
+  top: 100px;
+  left: 0;
   width: 70px;
   height: 70px;
   border-radius: 50%;
   border: 2px solid #e08718;
+  position: absolute;
+  z-index: 5;
 }
 #cartToggle #howCountCart {
   bottom: 0;
