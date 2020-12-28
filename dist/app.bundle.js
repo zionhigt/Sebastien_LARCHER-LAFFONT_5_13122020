@@ -388,7 +388,7 @@ document.querySelector('body').addEventListener("dataisready", function(){
 
 
 let btnClicked = 0;
-let btnPosMobileTop = 0;
+let btnPosMobileTopMax = parseInt(window.screen.height - 100);
 let btnPosMobileLeft = 0;
 
 let btnCart = document.querySelector("#cartToggle");
@@ -456,7 +456,6 @@ btnCart.addEventListener("touchend", function(e){
 	btnCart.style.transition = "left 0.5s ease-out";
 	btnClicked = 0;
 	btnCart.style.left = btnPosMobileLeft + "px";
-	console.log(btnPosMobileTop);
 }, false);
 
 btnCart.addEventListener("touchmove", function(e){
@@ -465,8 +464,8 @@ btnCart.addEventListener("touchmove", function(e){
 	{
 		if(e.touches[0].clientX < (window.screen.width - 80))
 		{
-			btnCart.style.left = parseInt(e.touches[0].pageX) + "px";
-			console.log(parseInt(e.touches[0].pageX) + "px");
+			btnCart.style.left = parseInt(e.touches[0].clientX) + "px";
+			console.log(parseInt(e.touches[0].clientX) + "px");
 		}
 		else
 		{
@@ -482,13 +481,14 @@ btnCart.addEventListener("touchmove", function(e){
 
 		if(e.touches[0].clientY > 0)
 		{
-			btnCart.style.top = parseInt(e.touches[0].pageY) + "px";
+			btnCart.style.top = parseInt(e.touches[0].clientY) + "px";
 
 		}
 
-		if(e.touches[0].clientY > window.screen.height - 80)
+		if(e.touches[0].clientY > btnPosMobileTopMax)
 		{
-			btnCart.style.top = parseInt(window.screen.height - 80) + "px";
+			btnCart.style.top = btnPosMobileTopMax + "px";
+			console.log(e.touches[0].clientY > btnPosMobileTopMax);
 
 		}
 

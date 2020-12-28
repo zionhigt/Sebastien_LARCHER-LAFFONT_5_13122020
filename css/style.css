@@ -71,7 +71,7 @@ main h1::after {
   height: 70px;
   border-radius: 50%;
   border: 2px solid #e08718;
-  position: absolute;
+  position: fixed;
   z-index: 5;
   transition: left 0s ease-out;
 }
