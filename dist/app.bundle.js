@@ -390,19 +390,18 @@ document.querySelector('body').addEventListener("dataisready", function(){
 let btnClicked = 0;
 
 let btnCart = document.querySelector("#cartToggle");
-console.log(window.screen.width);
 
 btnCart.addEventListener("mousedown", function(e){
 	btnClicked = 1;
-	console.log(btnClicked);
+	console.log("mouse");
 	document.querySelector('body').addEventListener("mouseup", function(e){
 		btnClicked = 0;
-		console.log(btnClicked);
 	});
 });
 
 
 document.addEventListener("mousemove", function(e){
+	
 	if(btnClicked == 1)
 	{
 		if(e.clientX < (window.screen.width - 100))
@@ -424,6 +423,40 @@ document.addEventListener("mousemove", function(e){
 	}
 	
 });
+
+
+btnCart.addEventListener("touchstart", function(e){
+	btnClicked = 1;
+	document.querySelector('body').addEventListener("touchend", function(e){
+		btnClicked = 0;
+	}, false);
+}, false);
+
+
+document.addEventListener("touchmove", function(e){
+	console.log(e.target);
+	if(btnClicked == 1)
+	{
+		if(e.clientX < (window.screen.width - 100))
+		{
+			btnCart.style.left = e.clientX + "px";
+		}
+		else
+		{
+			btnCart.style.left = (window.screen.width - 100) + "px";
+
+		}
+
+		if(e.clientY > 0)
+		{
+			btnCart.style.top = e.clientY + "px";
+
+		}
+
+	}
+	
+}, false);
+
 
 
 // afficher les produits
