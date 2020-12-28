@@ -388,14 +388,29 @@ document.querySelector('body').addEventListener("dataisready", function(){
 
 
 let btnClicked = 0;
+let btnPosMobileTop = 0;
+let btnPosMobileLeft = 0;
 
 let btnCart = document.querySelector("#cartToggle");
 
 btnCart.addEventListener("mousedown", function(e){
 	btnClicked = 1;
+	btnCart.style.transition = "left 0s ease-out";
 	console.log("mouse");
 	document.querySelector('body').addEventListener("mouseup", function(e){
+
 		btnClicked = 0;
+		btnCart.style.transition = "left 0.5s ease-out";
+		if(e.clientX < (window.screen.width - 80)/2)
+		{
+			btnCart.style.left = "0px";
+
+		}
+		else
+		{
+			btnCart.style.left = (window.screen.width - 80) + "px";
+
+		}
 	});
 });
 
@@ -420,6 +435,12 @@ document.addEventListener("mousemove", function(e){
 
 		}
 
+		if(e.clientY > window.screen.height - 250)
+		{
+			btnCart.style.top = parseInt(window.screen.height - 250) + "px";
+
+		}
+
 	}
 	
 });
@@ -427,11 +448,15 @@ document.addEventListener("mousemove", function(e){
 
 btnCart.addEventListener("touchstart", function(e){
 	btnClicked = 1;
+	btnCart.style.transition = "left 0s ease-out";
 
 }, false);
 
 btnCart.addEventListener("touchend", function(e){
+	btnCart.style.transition = "left 0.5s ease-out";
 	btnClicked = 0;
+	btnCart.style.left = btnPosMobileLeft + "px";
+	console.log(btnPosMobileTop);
 }, false);
 
 btnCart.addEventListener("touchmove", function(e){
@@ -449,7 +474,7 @@ btnCart.addEventListener("touchmove", function(e){
 
 		}
 
-		if(parseInt(e.touches[0].pageX) < 0)
+		if(parseInt(e.touches[0].clientX) < 0)
 		{
 			btnCart.style.left = "0px";
 
@@ -460,6 +485,25 @@ btnCart.addEventListener("touchmove", function(e){
 			btnCart.style.top = parseInt(e.touches[0].pageY) + "px";
 
 		}
+
+		if(e.touches[0].clientY > window.screen.height - 80)
+		{
+			btnCart.style.top = parseInt(window.screen.height - 80) + "px";
+
+		}
+
+		if(e.touches[0].clientX < (window.screen.width - 80)/2)
+		{
+			btnPosMobileLeft = 0;
+
+		}
+		else
+		{
+			btnPosMobileLeft = (window.screen.width - 80);
+
+		}
+
+
 
 	}
 	
