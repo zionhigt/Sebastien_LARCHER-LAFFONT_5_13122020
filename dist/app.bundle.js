@@ -427,29 +427,37 @@ document.addEventListener("mousemove", function(e){
 
 btnCart.addEventListener("touchstart", function(e){
 	btnClicked = 1;
-	document.querySelector('body').addEventListener("touchend", function(e){
-		btnClicked = 0;
-	}, false);
+
 }, false);
 
+btnCart.addEventListener("touchend", function(e){
+	btnClicked = 0;
+}, false);
 
-document.addEventListener("touchmove", function(e){
-	console.log(e.target);
+btnCart.addEventListener("touchmove", function(e){
+	e.preventDefault();
 	if(btnClicked == 1)
 	{
-		if(e.clientX < (window.screen.width - 100))
+		if(e.touches[0].clientX < (window.screen.width - 80))
 		{
-			btnCart.style.left = e.clientX + "px";
+			btnCart.style.left = parseInt(e.touches[0].pageX) + "px";
+			console.log(parseInt(e.touches[0].pageX) + "px");
 		}
 		else
 		{
-			btnCart.style.left = (window.screen.width - 100) + "px";
+			btnCart.style.left = (window.screen.width - 80) + "px";
 
 		}
 
-		if(e.clientY > 0)
+		if(parseInt(e.touches[0].pageX) < 0)
 		{
-			btnCart.style.top = e.clientY + "px";
+			btnCart.style.left = "0px";
+
+		}
+
+		if(e.touches[0].clientY > 0)
+		{
+			btnCart.style.top = parseInt(e.touches[0].pageY) + "px";
 
 		}
 
