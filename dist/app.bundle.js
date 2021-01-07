@@ -227,6 +227,12 @@ function form_nextCallBack(){
 	}
 	// Go to next Step if all is fine
 }
+
+function previousCallBack()
+{
+	$("#submitOrder").modal('hide');
+}
+
 function formListener()
 {
 	showPageView(0);
@@ -239,6 +245,7 @@ function formListener()
 	form_submitButton.removeEventListener("click", cv_nextCallBack);
 
 	form_submitButton.addEventListener("click", form_nextCallBack);
+	prevButton.addEventListener("click", previousCallBack);
 	// Add my event listener and remove the others
 }
 
@@ -348,7 +355,7 @@ function payment_nextCallBack()
 	})
 }
 
-function previousCallBack()
+function payment_previousCallBack()
 {
 	showOrderCv();
 }
@@ -365,7 +372,7 @@ function showPayment()
 	payment_prevButton.removeEventListener("click", cv_previousCallBack);
 
 	payment_submitButton.addEventListener("click", payment_nextCallBack);
-	payment_prevButton.addEventListener("click", previousCallBack);
+	payment_prevButton.addEventListener("click", payment_previousCallBack);
 	// Add my event listener and remove the others
 
 }
@@ -407,6 +414,7 @@ function showOrderCv()
 
 	cv_submitButton.removeEventListener("click", form_nextCallBack);
 	cv_submitButton.removeEventListener("click", payment_nextCallBack);
+	cv_prevButton.removeEventListener("click", payment_previousCallBack);
 	cv_prevButton.removeEventListener("click", previousCallBack);
 
 	cv_submitButton.addEventListener("click", cv_nextCallBack);
@@ -760,6 +768,10 @@ function buildCardsDeck(){
 
       createAProductCard(data[i], idCard).then(function(e){
           deck.appendChild(e);
+
+     }).then(function(){
+
+          document.getElementById("waiting").classList.add("d-none");
           
      }).catch(function(e){
 
@@ -963,8 +975,8 @@ window.addEventListener("DOMContentLoaded", function(e){
 	// renvoyer l'utilisateur à la liste des produits.
 // commander
 	// dans le panier avec au moin 1 produits
+		// confirmer le formulaire
 		// résumer la commande
-		// confirmer et passer au formulaire
 		// si le formualaire et correctement rempli
 			//validation
 				// remerciments

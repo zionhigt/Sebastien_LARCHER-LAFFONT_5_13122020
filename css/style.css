@@ -282,6 +282,14 @@ h3[id^=cardCartName_]::before {
   z-index: -1;
 }
 
+.loader-waiting {
+  position: fixed;
+  z-index: 1;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+}
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;

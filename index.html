@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="Orinoco vous propose des apareils photo vintage. Disponible a l'achat en ligne. Commandez en quelques cliques et revivez l'age de la photographe argentique. Choisissez parmis nos pieces de collections et faite vous livrer a l'adresse de votre choix. ">
+	<meta name="description" content="Orinoco vous propose des apareils photo vintage. Disponible a l'achat en ligne. Commandez en quelques cliques et revivez l'age de la photographie argentique. Choisissez parmis nos pieces de collections et faite vous livrer a l'adresse de votre choix. ">
 	<meta name="author" content="Orinoco">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
@@ -17,7 +17,15 @@
 </head>
 
 <body class="position-relative h-100 mb-0">
-
+	<div id="waiting" class="loader-waiting">
+		<h1 class="text-center mt-5">Orinoco</h1>
+		<p class="text-center mt-5">Préparation de la vitrine</p>
+		<p class="text-center">
+			<span class="load-spinner--point__0">.</span>
+			<span class="load-spinner--point__1">.</span>
+			<span class="load-spinner--point__2">.</span>
+		</p>
+	</div>
 	<nav class="navbar navbar-expand-md navbar-light bg-orinoco">
 		<button id="cartToggle" class="btn btn-dark stretched-link" type="button" data-target="#cartView" data-toggle="modal" aria-expanded="false">
 
@@ -78,7 +86,7 @@
 		</aside>
 
 		<section class="px-0 bg-dark col-12 col-md-auto w-100 h-100" id="camerasView">
-
+			
 			<!-- template productView -->
 			<!-- template productCard -->
 		</section>
@@ -188,7 +196,7 @@
 									<ul id="progressbar" class="px-0 row">
 										<li class="col-3 px-1 active" id="personal"><strong>Informations personnelles</strong></li>
 										<li class="col-3 px-1" id="order"><strong>Résumé de la Commande</strong></li>
-										<li class="col-3 px-1" id="payment"><strong>Paiment</strong></li>
+										<li class="col-3 px-1" id="payment"><strong>Paiement</strong></li>
 										<li class="col-3 px-1" id="confirm"><strong>Fin</strong></li>
 									</ul> <!-- fieldsets -->
 									<div id="stepContainer">
@@ -200,23 +208,23 @@
 												<div class="form-card">
 													<h3 class="text-left text-dark">Vos Informations personnelles</h3>
 
-													<label class="form-control form-label border-custom-cameras mt-5 text-dark" for="firstName">Prénom</label>
+													<label class="form-control shadow-md mt-5 mb-0 text-dark font-weight-bold bg-orinoco" for="firstName">Prénom</label>
 													<input required="required" class="form-control mb-1" type="text" id="firstName" placeholder="Raymon" /> 
 													<small class="d-none mb-3 text-danger">Ce champ est obligatoire</small>
 
-													<label class="form-control border-custom-cameras mt-5 text-dark" for="lastName">Nom de famille</label>
+													<label class="form-control shadow-md mt-5 mb-0 text-dark font-weight-bold bg-orinoco" for="lastName">Nom de famille</label>
 													<input required="required" class="form-control mb-1" type="text" id="lastName" placeholder="Depardon" /> 
 													<small class="d-none mb-3 text-danger">Ce champ est obligatoire</small>
 
-													<label class="form-control border-custom-cameras mt-5 text-dark" for="address">Adresse</label>
+													<label class="form-control shadow-md mt-5 mb-0 text-dark font-weight-bold bg-orinoco" for="address">Adresse</label>
 													<input required="required" class="form-control mb-1" type="text" id="address" placeholder="3 B RUE DES ETANGS" /> 
 													<small class="d-none mb-3 text-danger">Ce champ est obligatoire</small>
 
-													<label class="form-control border-custom-cameras mt-5 text-dark" for="city">Ville de résidence</label>
+													<label class="form-control shadow-md mt-5 mb-0 text-dark font-weight-bold bg-orinoco" for="city">Ville de résidence</label>
 													<input required="required" class="form-control mb-1" type="text" id="city" placeholder="CLAMART" />
 													<small class="d-none mb-3 text-danger">Ce champ est obligatoire</small>
 
-													<label class="form-control border-custom-cameras mt-5 text-dark" for="email">Adresse E-mail</label>
+													<label class="form-control shadow-md mt-5 mb-0 text-dark font-weight-bold bg-orinoco" for="email">Adresse E-mail</label>
 													<input required="required" class="form-control mb-1" type="email" id="email" placeholder="raymon.depardon@orinoco.com" />
 													<small class="d-none mb-3 text-danger">Ce champ est obligatoire</small>
 												</div> 
@@ -267,7 +275,7 @@
 											<h3 class="text-success">Paiement accepté</h3>
 											<h4>Merci pour votre achat</h4>
 											<p>Suivez votre commande avec ce code <br/></p>
-											<input id="orderNumber" class="font-weight-bold " readonly>
+											<input id="orderNumber" class="font-weight-bold form-control w-40 text-center" readonly>
 										</div>
 									</div>
 								</div>
