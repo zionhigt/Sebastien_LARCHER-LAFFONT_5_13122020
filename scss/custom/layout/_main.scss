@@ -1,0 +1,32 @@
+html
+{
+	// height: 100%;
+}
+
+body
+{
+
+	font-family: 'Yusei Magic', sans-serif!important;
+}
+main
+{
+	height: 100%;
+
+	& h1, h2, h3{
+	
+	
+	}
+
+	& h2.subligned::after
+	{
+		content: "";
+		display: block;
+		width: 90px;
+		height: 3px;
+		background-color: $primary;
+		margin-top: 10px;
+	}
+
+
+
+}
