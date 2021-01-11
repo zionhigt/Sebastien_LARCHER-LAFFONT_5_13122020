@@ -1,29 +1,6 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 
-;// CONCATENATED MODULE: ./js/modules/getProductData.js
-async function productData()
-{
-	const url = "http://localhost:3001/api/cameras/";
-
-	const response = await fetch(url);
-	return response.json();
-}
-
-let data =[];
-let res = productData().then(function(e){
-	if(e.length >= 1)
-	{
-		data = e;
-		document.querySelector('body').dispatchEvent(dataDownloaded);
-	}
-}).catch(function(e){
-
-	console.log("ERREUR: \n" + e);
-});
-
-let dataDownloaded = document.createEvent("event");
-dataDownloaded.initEvent("dataisready", true, true);
 ;// CONCATENATED MODULE: ./js/modules/variantChoice.js
 function buildVariantChoice(content, parent){
 
@@ -44,10 +21,11 @@ function buildVariantChoice(content, parent){
 }
 ;// CONCATENATED MODULE: ./js/modules/alert.js
 let notificationCount = 0;
+
 const settingOfType = {
 		"add": {
 			"text": " à été ajouté a votre panier !",
-			"bg": "bg-primary"
+			"bg": "bg-success"
 		},
 
 		"delete":
@@ -59,10 +37,10 @@ const settingOfType = {
 		{
 			"text":" est déjà dans votre panier",
 			"bg": "bg-info" 
-		},
+		}
 	};
 
-function popAlertAddingCart(type, text){
+function popAlertActionCart(type, text){
 	
 	let alertTemplate = document.querySelector('#alertBox');
 	let alertTemplateClone = document.importNode(alertTemplate.content, true);
@@ -86,8 +64,9 @@ function popAlertAddingCart(type, text){
 		notificationCount = 0;
 	}
 
-	// container.style.top = notificationCount*30 +"px";
-	container.style.zIndex = notificationCount*2 + "";
+	// .substring(0, -2);
+
+	container.style.zIndex = notificationCount*2 + 10000 + "";
 	let time = setTimeout(function(){
 
 		container.classList.add('d-none');
@@ -103,17 +82,401 @@ function settingId(element, id)
 	const lastId = element.id;
 	element.setAttribute('id', lastId + "_" + id);
 }
+;// CONCATENATED MODULE: ./js/modules/multi.js
+
+
+
+
+
+
+
+const buttonNextText = ["Valider vos informations", "Ma commande me convient", "Payer", "", "Fermer"];
+const buttonPreviousText = ["Fermer", "Modifier vos informations", "Ma commande", ""];
+// It is an array fulled with each button's text
+let nextStepButton = document.getElementById('nextStep');
+let previousStepButton = document.getElementById('previousStep');
+let container = document.getElementById('stepContainer');
+
+function multiStepHandeler()
+{
+	formListener();
+	// Init first listener
+}
+
+
+function showPageView(id)
+{
+	// Give me an id I'll be able to show the proper chidren of the parent
+	switchProgress(id);
+	switchButton(id);
+	let a = -1;
+	for(let i of container.children)
+	{
+		a++;
+
+		if(a == id)
+		{
+
+			i.style.display  = "block";
+		}
+		else
+		{
+			i.style.display  = "none";
+
+		}
+	}
+}
+
+function switchButton(id)
+{
+	// Be switching to good button
+	let nextText = buttonNextText[id];
+	let previousText = buttonPreviousText[id];
+	
+	nextStepButton.innerHTML = nextText;
+	previousStepButton.innerHTML = previousText;
+}
+
+function switchProgress(id)
+{
+	// Be switching to good progress icone
+	let progressItems = document.getElementById('progressbar');
+	let a = -1;
+	if(id == 4)
+	{
+		id = 3;
+	}
+	for(let i of progressItems.children)
+	{
+		a++;
+
+		if(a == id)
+		{
+
+			i.classList.add('active');
+		}
+		else
+		{
+
+			i.classList.remove('active');
+		}
+	}
+}
+;// CONCATENATED MODULE: ./js/modules/end.js
+
+
+
+
+
+let submitButton = document.getElementById("nextStep");
+
+function nextCallBack(e)
+{
+	$("#submitOrder").modal("hide");
+	$("#cartView").modal("hide");
+	// Closing multi window and cart window
+
+	formListener();
+	// Returning a the start formulaire with keep the owner informations
+
+}
+
+function endOfOrder(e)
+{
+	showPageView(4);
+
+	document.getElementById("orderNumber").value = e.orderId;
+
+	getEmpty();
+	// Getting an empty cart after end of order
+
+	submitButton.removeEventListener("click", payment_nextCallBack);
+	submitButton.addEventListener("click", nextCallBack);
+	// Add my event listener and remove the others
+
+
+	setTimeout(function(){
+		document.querySelector('body').classList.add("modal-open");
+		// Waiting for body get ready back to add a modal-open class
+	}, 500);
+}
+
+
+;// CONCATENATED MODULE: ./js/modules/form.js
+
+
+
+
+let prevButton = document.getElementById('previousStep');
+let form_submitButton = document.getElementById('nextStep');
+
+let customer = {
+	firstName: "",
+	lastName: "",
+	address:"",
+	city: "",
+	email: ""
+};
+// This customer object will be sent
+
+function form_nextCallBack(){
+
+	if(formControl() == 1)
+	{
+		showOrderCv();
+	}
+	// Go to next Step if all is fine
+}
+
+function previousCallBack()
+{
+	$("#submitOrder").modal('hide');
+}
+
+function formListener()
+{
+	showPageView(0);
+
+	form_submitButton.classList.add("d-block");
+	prevButton.classList.add("d-block");
+
+	prevButton.removeEventListener("click", cv_previousCallBack);
+	form_submitButton.removeEventListener("click", nextCallBack);
+	form_submitButton.removeEventListener("click", cv_nextCallBack);
+
+	form_submitButton.addEventListener("click", form_nextCallBack);
+	prevButton.addEventListener("click", previousCallBack);
+	// Add my event listener and remove the others
+}
+
+function formControl()
+{
+	const firstName = document.getElementById("firstName");
+	const lastName = document.getElementById("lastName");
+	const address = document.getElementById("address");
+	const city = document.getElementById("city");
+	const email = document.getElementById("email");
+	let values = [firstName, lastName, address, city, email];
+	let good = 1;
+
+	customer.firstName = firstName.value;
+	customer.lastName = lastName.value;
+	customer.address = address.value;
+	customer.city = city.value;
+	customer.email = email.value;
+
+	for(let i of values)
+	{
+		if(i.value == "" || typeof(i.value) != "string")
+		{
+			i.classList.add("unvalable", "bg-warning");
+			good = 0;
+		}
+
+		i.addEventListener('focus', function(e){
+			e.target.classList.remove('unvalable', "bg-warning");
+		})
+	}
+	return good;
+
+	// Check the good form value is here. Add the good into customers object
+	// Alert for the bad inputs
+}
+;// CONCATENATED MODULE: ./js/modules/send.js
+
+
+
+
+async function sendOrder()
+{
+	
+
+	let bodyRequest = JSON.stringify({
+	 			"contact": customer, 
+	 			"products": getProductArray()
+	 		});
+	// Making body request
+
+	let request = await fetch("https://orinoco-cameras.herokuapp.com/api/cameras/order", {
+	 		method: "POST",
+	 		body: bodyRequest,
+	 		headers: {                           
+  				"Content-Type": "application/json"    
+ 			}             
+	 	});
+	// Sending the order requeste 
+	return request.json();
+
+}
+
+
+function getProductArray()
+{
+	let productArray = [];
+
+	for(let i of articlesIntoCart)
+	{
+		productArray.push(i._id);
+	}
+
+	return productArray;
+
+	// Making a products array
+}
+
+
+;// CONCATENATED MODULE: ./js/modules/payment.js
+
+
+
+
+
+
+
+let payment_submitButton = document.getElementById('nextStep');
+let payment_prevButton = document.getElementById('previousStep');
+let priceElement = document.getElementById("mainPrice");
+
+function payment_nextCallBack()
+{
+	showPageView(3);
+
+	payment_submitButton.classList.add("d-none");
+	payment_prevButton.classList.add("d-none");
+
+	payment_submitButton.classList.remove("d-block");
+	payment_prevButton.classList.remove("d-block");
+
+	sendOrder().then(function(e){
+		payment_submitButton.classList.add("d-block");
+		endOfOrder(e);
+	}).catch(function(er){
+		console.log("Erreur lors de la requête : " + er);
+	})
+}
+
+function payment_previousCallBack()
+{
+	showOrderCv();
+}
+
+
+function showPayment()
+{
+	updatePrice();
+
+	showPageView(2);
+
+	payment_submitButton.removeEventListener("click", cv_nextCallBack);
+	payment_submitButton.removeEventListener("click", nextCallBack);
+	payment_prevButton.removeEventListener("click", cv_previousCallBack);
+
+	payment_submitButton.addEventListener("click", payment_nextCallBack);
+	payment_prevButton.addEventListener("click", payment_previousCallBack);
+	// Add my event listener and remove the others
+
+}
+
+function updatePrice()
+{
+	priceElement.innerHTML = cartTotal + "€";
+	// Updating the total price
+
+}
+;// CONCATENATED MODULE: ./js/modules/cv.js
+
+
+
+
+
+let table = document.querySelector('#cvView tbody');
+let cv_submitButton = document.getElementById('nextStep');
+let cv_prevButton = document.getElementById('previousStep');
+
+
+let total = document.getElementById('priceTotal');
+
+function cv_nextCallBack()
+{
+	showPayment();
+}
+
+function cv_previousCallBack()
+{
+	formListener();
+}
+
+function showOrderCv()
+{
+	updateOrderCv();
+	
+	showPageView(1);
+
+	cv_submitButton.removeEventListener("click", form_nextCallBack);
+	cv_submitButton.removeEventListener("click", payment_nextCallBack);
+	cv_prevButton.removeEventListener("click", payment_previousCallBack);
+	cv_prevButton.removeEventListener("click", previousCallBack);
+
+	cv_submitButton.addEventListener("click", cv_nextCallBack);
+	cv_prevButton.addEventListener("click", cv_previousCallBack);
+	// Add my event listener and remove the others
+
+
+}
+
+function updateOrderCv()
+{
+	let cartItems = articlesIntoCart;
+	table.innerHTML = "";
+	total.innerHTML = cartTotal + "€";
+
+	for(let i in cartItems)
+	{
+		let row = document.createElement("tr");
+
+		let quantity = document.createElement("td");
+		quantity.innerHTML = totalArticles[i];
+
+		let name = document.createElement("td");
+		name.innerHTML = cartItems[i].name;
+
+		let unitPrice = document.createElement("td");
+		unitPrice.innerHTML = cartItems[i].price/100 + "€";
+
+		let multiPrice = document.createElement("td");
+		multiPrice.innerHTML = totalArticles[i] * cartItems[i].price/100 + "€";
+
+		row.appendChild(quantity);
+		row.appendChild(name);
+		row.appendChild(unitPrice);
+		row.appendChild(multiPrice);
+
+		table.appendChild(row);
+
+
+
+	}
+
+	updatePrice();
+
+	// Making a order table with all the products
+}
 ;// CONCATENATED MODULE: ./js/modules/cart.js
+
+
+
 
 
 let articlesIntoCart = [];//Liste des articles dans le panier
 let countItems = [];//Liste des sous totaux
 let totalArticles = [];//Liste des quantité par article 
+let cartTotal = 0;
 
 function buildingCart()
 {
 	let cartView = document.getElementById('cartProducts');
 	let domGroup = [];
+	const validationButton = document.querySelector("#validateOrder");
 	cartView.innerHTML = "";
 	let cardCartTemplate  = document.getElementById('cardCartView');
 	document.getElementById("howCountCart").innerHTML = articlesIntoCart.length;
@@ -170,16 +533,20 @@ function buildingCart()
 		}
 
 
-		document.querySelector("#validateOrder").disabled = false;
+		validationButton.disabled = false;
 	}
 	else
 	{
 		let emptyCardMessage = document.createElement('span');
 		// emptyCardMessage.classList.add('font-weight-bold', 'text-center', 'bg-dark', 'text-orinoco');
 		cartView.innerHTML = "<span class=\"font-weight-bold text-center bg-dark text-orinoco my-5 d-block\">Votre panier est vide!</span>";
-		document.querySelector("#validateOrder").disabled = true;
+		validationButton.disabled = true;
+		$("#cartView").modal("hide");
+
 
 	}
+
+	validationButton.addEventListener("click", updateOrderCv);
 }
 
 function removeItemOnce(article) {
@@ -188,7 +555,7 @@ function removeItemOnce(article) {
 		articlesIntoCart.splice(index, 1);
 		countItems.splice(index, 1);
 		totalArticles.splice(index, 1);
-		document.querySelector('body').prepend(popAlertAddingCart("delete", article.name));
+		document.querySelector('body').prepend(popAlertActionCart("delete", article.name));
 		upgradeTotal();
 	}
 }
@@ -201,7 +568,7 @@ function addArticleIntoCart(article)
 		countItems.push(parseInt(article.price/100));
 		totalArticles.push(1);
 		buildingCart();
-		document.querySelector('body').prepend(popAlertAddingCart("add", article.name));
+		document.querySelector('body').prepend(popAlertActionCart("add", article.name));
 		upgradeTotal();
 
 
@@ -209,7 +576,14 @@ function addArticleIntoCart(article)
 
 	else
 	{
-		document.querySelector('body').prepend(popAlertAddingCart("already", article.name));
+		document.querySelector('body').prepend(popAlertActionCart("already", article.name));
+		// jQuery.noConflict();
+		setTimeout(function(){
+			$("#cartView").modal('toggle');
+
+		}, 400);
+		// document.querySelector('body').classList.add("modal-open");
+
 
 	}
 }
@@ -219,12 +593,26 @@ function upgradeTotal()
 	let initItems = 0;
 	let initArticles = 0;
 
+	console.log(totalArticles);
+
 	for(let i in countItems)
 	{
 		initItems += countItems[i];
 		initArticles += totalArticles[i];
 	}
+	cartTotal = initItems;
 	document.querySelector("#cartTotal").innerHTML = "Total ("+ initArticles+") : " + initItems + "€";
+}
+
+function getEmpty()
+{
+	articlesIntoCart = [];
+	countItems = [];
+	totalArticles = []; 
+	cartTotal = 0;
+	upgradeTotal();
+	buildingCart();
+
 }
 
 ;// CONCATENATED MODULE: ./js/modules/template.js
@@ -232,9 +620,10 @@ function upgradeTotal()
 
 
 
-async function getMainCardFromTemplate(productData, id)
+function getStoreCardFromTemplate(productData, id)
 {
-	await getSelectedCardFromTemplate(productData, id);
+	// Be generating a product view from his template for main view box
+	getSelectedCardFromTemplate(productData, id);
 	let templateCard = document.querySelector('#productCard');
 
 
@@ -269,6 +658,7 @@ async function getMainCardFromTemplate(productData, id)
 
 function getSelectedCardFromTemplate(productData, id)
 {
+	// Be generating a product view from his template for selected produts view box
 	let selectedTemplate = document.querySelector('#modalBox');
 	let selectedTemplateClone = document.importNode(selectedTemplate.content, true);
 
@@ -314,7 +704,7 @@ function getSelectedCardFromTemplate(productData, id)
 
 function template_settingId(element, id)
 {
-	// console.log(element);
+	// Be concatenating id string to a unique number added
 	const lastId = element.id;
 	element.setAttribute('id', lastId + "_" + id);
 }
@@ -325,117 +715,122 @@ function template_settingId(element, id)
 
 async function createAProductCard(productData, id)
 {
-    let content  = await getMainCardFromTemplate(productData, id);
+    let content  = await getStoreCardFromTemplate(productData, id);
     return content;
-
-
- 
-  // addToCart.addEventListener("click", function(e){
-  //     if(!(articlesIntoCart.includes(productData)))
-  //       {
-  //         articlesIntoCart.push(productData);
-
-  //       }
-  //     addElementIntoCart();
-  // });
-
-
+    // Give card product when it built off
 }
 
-// export async function showProductInModalBOx(productData)
-// {
-// 	let content = await template.getSelectedCardFromTemplate(productData);
-// 	return content;
-// }
+;// CONCATENATED MODULE: ./js/modules/getProductData.js
+let dataDownloaded = document.createEvent("event");
+dataDownloaded.initEvent("dataisready", true, true);
+
+let data = [];
+
+async function productData()
+{
+	const url = "https://orinoco-cameras.herokuapp.com/api/cameras";
+
+	const response = await fetch(url);
+	return response.json();
+}
+
+let res = productData().then(function(e){
+	if(e.length >= 1)
+	{
+		data = e;
+		document.dispatchEvent(dataDownloaded);
+	}
+}).catch(function(e){
+
+	console.log("ERREUR: \n" + e);
+});
+
+
 ;// CONCATENATED MODULE: ./js/modules/mainProductList.js
 
 
 
-function buildCardsDeck(content){
 
-  let templateView = document.getElementById('productsView');
+function buildCardsDeck(){
 
-  let cloneTemplateView = document.importNode(templateView.content, true);
+  let deck = document.getElementById('deck-cameras');
 
-  let deck = cloneTemplateView.getElementById('deck');
-  deck.setAttribute("id", "deck-cameras");
+  // let cloneTemplateView = document.importNode(templateView.content, true);
 
-  let deckTitle = cloneTemplateView.getElementById('productTitle');
-  deck.appendChild(deckTitle);
+  // let deck = cloneTemplateView.getElementById('deck');
+  // deck.setAttribute("id", "deck-cameras");
 
-  for(let i in content)
+  // let deckTitle = cloneTemplateView.getElementById('productTitle');
+  // deck.appendChild(deckTitle);
+  // Be getting for a deck from his template
+
+  for(let i in data)
   {
-    let idCard = ("cameras_" + i);
-    // deck.appendChild(product.createAProductCard(content[i], idCard));
-    createAProductCard(content[i], idCard).then(function(e){
-       deck.appendChild(e);
-    })
+      let idCard = ("cameras_" + i);
+
+      createAProductCard(data[i], idCard).then(function(e){
+          deck.appendChild(e);
+
+     }).then(function(){
+
+          document.getElementById("waiting").classList.add("d-none");
+          
+     }).catch(function(e){
+
+      console.log("ERREUR: \n" + e);
+    });
+    // Be getting a card for each products there are into data
 
 
-  }
-  return cloneTemplateView;
+ }
+ // return cloneTemplateView;:=
 }
-;// CONCATENATED MODULE: ./js/index.js
+;// CONCATENATED MODULE: ./js/modules/eventCartBtn.js
 
-
-
-
-
-document.querySelector('body').addEventListener("dataisready", function(){
-
-	document.querySelector("#camerasView").appendChild(buildCardsDeck(data));
-})
-
-
-let btnClicked = 0;
-let btnPosMobileTopMax = parseInt(window.screen.height - 100);
-let btnPosMobileLeft = 0;
+// Event in addition with the native bootstrap modal events
 
 let btnCart = document.querySelector("#cartToggle");
+let btnClicked = 0;
+let btnPosMobileTopMax = parseInt(window.screen.height - 100);
+let btnPosMobileLeft = btnCart.style.left;
+let btnCartMovable = 1;
 
+
+function initMovedBtnEvent()
+{
+
+
+
+// Event for the cart button when there is a navigation by mouse.
+
+
+// When mouse is getting down on cart's button
 btnCart.addEventListener("mousedown", function(e){
 	btnClicked = 1;
 	btnCart.style.transition = "left 0s ease-out";
-	console.log("mouse");
-	document.querySelector('body').addEventListener("mouseup", function(e){
-
-		btnClicked = 0;
-		btnCart.style.transition = "left 0.5s ease-out";
-		if(e.clientX < (window.screen.width - 80)/2)
-		{
-			btnCart.style.left = "0px";
-
-		}
-		else
-		{
-			btnCart.style.left = (window.screen.width - 80) + "px";
-
-		}
-	});
 });
-
-
+// Cart's button follows mouse moved until mouseup event is happened.
 document.addEventListener("mousemove", function(e){
 	
 	if(btnClicked == 1)
 	{
-		if(e.clientX < (window.screen.width - 100))
+		if(parseInt(e.clientX) < parseInt((window.screen.width - 120)))
 		{
-			btnCart.style.left = e.clientX + "px";
+			btnCart.style.left = parseInt(e.clientX) + "px";
 		}
 		else
 		{
-			btnCart.style.left = (window.screen.width - 100) + "px";
+			btnCart.style.left = parseInt((window.screen.width - 120)) + "px";
 
 		}
 
-		if(e.clientY > 0)
+		if(parseInt(e.clientY) > 0)
 		{
-			btnCart.style.top = e.clientY + "px";
+			btnCart.style.top = parseInt(e.clientY) + "px";
 
 		}
 
-		if(e.clientY > window.screen.height - 250)
+		if(parseInt(e.clientY) > parseInt(window.screen.height - 250))
 		{
 			btnCart.style.top = parseInt(window.screen.height - 250) + "px";
 
@@ -445,31 +840,62 @@ document.addEventListener("mousemove", function(e){
 	
 });
 
+// When mouse is getting up anywhere
+// Cart's button goes at closer side of the screen when mouseup event is sent and it still folows mouse.
+document.addEventListener("mouseup", function(e){
 
+	btnCart.style.transition = "left 0.5s ease-out";
+	if(btnClicked == 1)
+	{
+		
+		if(parseInt(e.clientX) < parseInt((window.screen.width - 80)/2))
+		{
+
+			btnCart.style.left = "0px";
+		}
+
+		else
+		{
+			btnCart.style.left = parseInt((window.screen.width - 80)) + "px";
+
+		}
+	}
+	btnClicked = 0;
+});
+
+
+
+
+// Event for the cart button when there is a navigation by finger or other pointer.
+
+// All this event listeners are an adaptation of the ones are up to "touch" way navigation. 
+
+// Same to mousedown
 btnCart.addEventListener("touchstart", function(e){
 	btnClicked = 1;
 	btnCart.style.transition = "left 0s ease-out";
 
 }, false);
 
+// Same to mouseup
 btnCart.addEventListener("touchend", function(e){
 	btnCart.style.transition = "left 0.5s ease-out";
 	btnClicked = 0;
 	btnCart.style.left = btnPosMobileLeft + "px";
 }, false);
 
+// Sames to mousemove
 btnCart.addEventListener("touchmove", function(e){
 	e.preventDefault();
 	if(btnClicked == 1)
 	{
-		if(e.touches[0].clientX < (window.screen.width - 80))
+		if(parseInt(e.touches[0].clientX) < parseInt((window.screen.width - 80)))
 		{
 			btnCart.style.left = parseInt(e.touches[0].clientX) + "px";
-			console.log(parseInt(e.touches[0].clientX) + "px");
 		}
 		else
 		{
-			btnCart.style.left = (window.screen.width - 80) + "px";
+			btnCart.style.left = parseInt((window.screen.width - 80)) + "px";
 
 		}
 
@@ -479,35 +905,62 @@ btnCart.addEventListener("touchmove", function(e){
 
 		}
 
-		if(e.touches[0].clientY > 0)
+		if(parseInt(e.touches[0].clientY) > 0)
 		{
 			btnCart.style.top = parseInt(e.touches[0].clientY) + "px";
 
 		}
 
-		if(e.touches[0].clientY > btnPosMobileTopMax)
+		if(parseInt(e.touches[0].clientY) > btnPosMobileTopMax)
 		{
 			btnCart.style.top = btnPosMobileTopMax + "px";
-			console.log(e.touches[0].clientY > btnPosMobileTopMax);
 
 		}
 
-		if(e.touches[0].clientX < (window.screen.width - 80)/2)
+		if(parseInt(e.touches[0].clientX) < parseInt((window.screen.width - 80)/2))
 		{
 			btnPosMobileLeft = 0;
 
 		}
 		else
 		{
-			btnPosMobileLeft = (window.screen.width - 80);
+			btnPosMobileLeft = parseInt((window.screen.width - 80));
 
 		}
 
+			console.log(btnCart.style.left);
 
 
 	}
 	
 }, false);
+}
+;// CONCATENATED MODULE: ./js/index.js
+
+
+
+
+window.addEventListener("DOMContentLoaded", function(e){
+	// When Dom is loaded
+	document.addEventListener("dataisready", function(){
+		// Be listening for dataisready event
+		buildCardsDeck();
+		// Be building cards of products
+
+	});
+
+	multiStepHandeler();
+	// Be initialising for multi step windows event listener 
+	initMovedBtnEvent();
+	// Be initialising for cart's button event listener 
+
+});
+
+
+
+
+
+
 
 
 
@@ -519,13 +972,13 @@ btnCart.addEventListener("touchmove", function(e){
 	// choisir une modification, par default première de la liste. 
 // ajouter au panier
 	// envoye le produits dans le panier.
-	// propose d'augmenter la quantité si le produit s'y trouve déja.
-	// Afficher une alerte indiquant que le produits est dans le panier.
+	// Afficher une alerte indiquant que le produit est dans le panier.
+	// Afficher une alerte indiquant que le produit s'y trouve déja.
 	// renvoyer l'utilisateur à la liste des produits.
 // commander
 	// dans le panier avec au moin 1 produits
+		// confirmer le formulaire
 		// résumer la commande
-		// confirmer et passer au formulaire
 		// si le formualaire et correctement rempli
 			//validation
 				// remerciments

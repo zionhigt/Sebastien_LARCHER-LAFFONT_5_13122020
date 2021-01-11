@@ -72,13 +72,14 @@ nav .logo img {
   height: auto;
 }
 
+body {
+  font-family: "Yusei Magic", sans-serif !important;
+}
+
 main {
   height: 100%;
 }
-main h1, main h2, main h3 {
-  font-family: serif;
-}
-main h1::after {
+main h2.subligned::after {
   content: "";
   display: block;
   width: 90px;
@@ -100,16 +101,10 @@ main h1::after {
 }
 
 .card-main {
-  min-width: 260px !important;
-  max-height: 520px !important;
   height: auto;
-  background-image: linear-gradient(rgba(16, 32, 39, 0.4), #f3e9f1 40% 40%, rgba(16, 32, 39, 0.1));
-  font-family: serif;
-  border: 2px solid #102027 !important;
-  border-top: 2px solid #f3e9f1 !important;
 }
 .card-main .img-card {
-  height: 150px;
+  height: 250px;
   width: auto;
   object-fit: cover;
 }
@@ -117,6 +112,11 @@ main h1::after {
   height: 40px;
 }
 
+@media all and (min-width: 1600px) {
+  .card-main .img-card {
+    height: 400px;
+  }
+}
 .seeProduct::before {
   content: "Voir les détails";
   position: relative;

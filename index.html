@@ -8,7 +8,7 @@
 	<meta name="author" content="Orinoco">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
 
 	<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
 
@@ -16,7 +16,7 @@
 	<title>Orinoco! Commandez en ligne nos appareils photo vintages</title>
 </head>
 
-<body class="position-relative h-100 mb-0">
+<body class="relative h-100 mb-0  bg-light">
 	<div id="waiting" class="loader-waiting">
 		<h1 class="text-center mt-5">Orinoco</h1>
 		<p class="text-center mt-5">Préparation de la vitrine</p>
@@ -26,7 +26,7 @@
 			<span class="load-spinner--point__2">.</span>
 		</p>
 	</div>
-	<nav class="navbar navbar-expand-md navbar-light bg-orinoco">
+	<nav class="navbar navbar-expand-md navbar-dark bg-primary text-center fixed-top mb-5">
 		<button id="cartToggle" class="btn btn-dark stretched-link" type="button" data-target="#cartView" data-toggle="modal" aria-expanded="false">
 
 			<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart-fill btn-cart" viewBox="0 0 16 16">
@@ -44,10 +44,21 @@
 
 		</button>
 
-		<a class="navbar-brand logo" href="#"><img src="images/orinoco-logo.png" alt="Logo de Orinoco"></a>
+		<h1 class="text-white">Orinocameras</h1>
 	</nav>
 
-	<main role="main" class="bg-custom-cameras w-auto h-auto px-0 py-1 mx-0 row">
+	<main role="main" class="container-fluid h-auto px-0 py-1 mx-0 mt-5">
+		<article class="text-center my-5">
+			<h2 class="mb-5 text-custom-cameras">
+				Le magasin en ligne, 
+				<br>dédié aux appareils photo vintage
+		</h2>
+			<p class=" my-5">
+				Nous vous avons selectionné une gamme unique d'appareils 
+				<br/>Que vous soyez collectioneur ou simplement passioné de la photographie et de son histoire.
+				<br/>Vous serrez ravis de decouvrir notre selection des meilleurs appareils photo de leur génération.
+			</p>
+		</article>
 
 		<aside class="modal w-100 fade" id="cartView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -85,11 +96,15 @@
 			</div><!-- modal-dialog -->
 		</aside>
 
-		<section class="px-0 bg-dark col-12 col-md-auto w-100 h-100" id="camerasView">
-			
-			<!-- template productView -->
-			<!-- template productCard -->
-		</section>
+		<section id="camerasView" class="container-fluid text-center mt-5">
+			<div class="row mx-3">
+				<h2 class="col-12 text-dark text-left subligned" id="productTitle">Appareils photo
+				</h2>
+			</div>
+			<div class="row text-center px-3" id="deck-cameras">	
+				<!-- template productCard -->
+			</div>
+		</section>		
 
 		<template id="alertBox">
 			<div class="alert text-orinoco alert-dismissible fade fixed-top zindex-popover" role="alert" id="alertContainer">
@@ -123,23 +138,13 @@
 			</div>
 		</template>
 
-		<template id="productsView">
-			<div class="row">
-				<h1 class="col-12 text-orinoco text-left" id="productTitle">Appareils photo</h1>
-			</div>
-			<div class="card-deck row py-5 container-fluid text-center mx-auto position-relative h-100" id="deck">	
-				<!-- template productCard -->
-			</div>
-
-		</template>
-
 		<template id="productCard">
-			<div class="card card-main col-12 col-md-1 col-lg-1 mt-5 mx-auto rounded-lg shadow p-1" id="card">
+			<div class="card card-main col-12 col-sm-5 mx-auto mt-5 rounded-lg shadow p-1 bg-light" id="card">
 				<img src="" alt="" class="card-img img-card" id="cardImg">
-				<div class="card-body" id="cardBody">
+				<div class="card-body bg-white rounded-lg mt-2" id="cardBody">
 					<h4 class="card-title" id="cardName"></h4>
 
-					<a  class="btn btn-outline-secondary seeProduct stretched-link" data-toggle="modal" aria-expanded="false" id="cardShowMore" data-target="#selectedModalBox"></a>
+					<a  class="btn btn-outline-warning seeProduct stretched-link" data-toggle="modal" aria-expanded="false" id="cardShowMore" data-target="#selectedModalBox"></a>
 
 				</div>
 
@@ -253,9 +258,9 @@
 												</tfoot>
 											</table>
 										</div>
-										<div id="payment">
+										<div id="paymentView">
 											<div class="text-center">
-												<h4>Merci de confirmer le paiment de <sapn id="mainPrice"></sapn></h4>
+												<h4>Merci de confirmer le paiement de <sapn id="mainPrice"></sapn></h4>
 											</div>
 
 										</div>
@@ -298,7 +303,7 @@
 	</main><!-- /.container -->
 
 
-	<footer class="page-footer bg-orinoco text-center w-100 h-100 px-1 my-0 text-dark">
+	<footer class="page-footer text-center w-100 h-100 px-1 mt-5 mb-0">
 
 		<div class="social py-4 row justify-content-center mx-auto">
 			<div class="col-2 mr-sm-5">
@@ -332,8 +337,10 @@
 		<div class="credit">
 			<a href="#content"class="mr-3">Vos informations personnelles</a>
 			<a href="#content"class="mr-3">Conditions générales de vente</a>
-			<a href="#content"class="mr-3">© 2020 .Orinoco</a>
+			<a href="#content"class="mr-3">Powered by Orinoco © 2020 .Orinoco</a>
+
 		</div>
+
 	</footer>
 	<!-- Bootstrap core JavaScript
 		================================================== -->
