@@ -26,6 +26,11 @@ export function nextCallBack(){
 export function previousCallBack()
 {
 	$("#submitOrder").modal('hide');
+	$("#cartView").modal('hide');
+
+	setTimeout(function(){
+		$("#cartView").modal('show');
+	}, 350);
 }
 
 export function formListener()

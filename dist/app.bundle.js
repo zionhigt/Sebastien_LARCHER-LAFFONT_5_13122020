@@ -58,6 +58,7 @@ function popAlertActionCart(type, text, autoKill=1){
 	{
 		container.classList.remove("fixed-top");
 		container.classList.add("fixed-bottom");
+		container.classList.add("mb-0");
 	}
 
 
@@ -246,6 +247,11 @@ function form_nextCallBack(){
 function previousCallBack()
 {
 	$("#submitOrder").modal('hide');
+	$("#cartView").modal('hide');
+
+	setTimeout(function(){
+		$("#cartView").modal('show');
+	}, 350);
 }
 
 function formListener()
@@ -482,24 +488,50 @@ dataDownloaded.initEvent("dataisready", true, true);
 
 let data = [];
 
-async function productData()
+function productData()
 {
 	const url = "https://orinoco-cameras.herokuapp.com/api/cameras";
 
-	const response = await fetch(url);
-	return response.json();
+	fetch(url).then(function(response){
+		if(response.status == 200)
+		{
+			response.json().then(function(d){
+
+				if(d.length >= 1)
+				{
+					data = d;
+
+					document.dispatchEvent(dataDownloaded);
+				}
+			});
+		}
+		else
+		{
+			let errorCode = response.status;
+			window.location = "./issues.html?error="+ errorCode;
+		}
+	});
+	
 }
+productData();
+// let res = productData().then(function(e){
+// 	console.log(JSON.parse(e),"then")
+// 	if(e.status == 200)
+// 	{
+// 		if(e.length >= 1)
+// 		{
+// 			data = e;
+// 			document.dispatchEvent(dataDownloaded);
+// 		}
+// 	}
+// 	else
+// 	{
+// 		console.log(e.status);
+// 	}
+// }).catch(function(e){
 
-let res = productData().then(function(e){
-	if(e.length >= 1)
-	{
-		data = e;
-		document.dispatchEvent(dataDownloaded);
-	}
-}).catch(function(e){
-
-	console.log("ERREUR: \n" + e);
-});
+// 	console.log(e.satus);
+// });
 
 function isIdOfProduct(id)
 {

@@ -36,6 +36,7 @@ export function popAlertActionCart(type, text, autoKill=1){
 	{
 		container.classList.remove("fixed-top");
 		container.classList.add("fixed-bottom");
+		container.classList.add("mb-0");
 	}
 
 
