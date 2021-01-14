@@ -1,6 +1,7 @@
 import * as productsList from "./modules/mainProductList.js";
 import * as btnCartEvent from "./modules/eventCartBtn.js";
 import * as multi from "./modules/multi.js";
+import * as cart from "./modules/cart.js";
 
 window.addEventListener("DOMContentLoaded", function(e){
 	// When Dom is loaded
@@ -8,6 +9,8 @@ window.addEventListener("DOMContentLoaded", function(e){
 		// Be listening for dataisready event
 		productsList.buildCardsDeck();
 		// Be building cards of products
+		cart.initCart();
+	// Initialising cart from localStorage
 
 	});
 

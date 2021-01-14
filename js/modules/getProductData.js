@@ -22,3 +22,16 @@ let res = productData().then(function(e){
 	console.log("ERREUR: \n" + e);
 });
 
+export function isIdOfProduct(id)
+{
+	let isOneOfThem = data.map(function(d){return (d._id == id)});
+	if(isOneOfThem.indexOf(true) == -1)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+

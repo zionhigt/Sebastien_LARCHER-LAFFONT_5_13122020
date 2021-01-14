@@ -15,10 +15,15 @@ const settingOfType = {
 		{
 			"text":" est déjà dans votre panier",
 			"bg": "bg-info" 
+		},
+		"cookies":
+		{
+			"text": "Ce site utilise les cookies pour ameliorer l'experience utilisateur <br><a class=\"read-more\" href=\"\"> en savoir plus...</a>",
+			"bg": "bg-dark"
 		}
 	};
 
-export function popAlertActionCart(type, text){
+export function popAlertActionCart(type, text, autoKill=1){
 	
 	let alertTemplate = document.querySelector('#alertBox');
 	let alertTemplateClone = document.importNode(alertTemplate.content, true);
@@ -26,6 +31,12 @@ export function popAlertActionCart(type, text){
 	let container = alertTemplateClone.querySelector('#alertContainer');
 	settingId(container, "" + notificationCount);
 	container.classList.add('show', settingOfType[type]["bg"]);
+
+	if(type == "cookies")
+	{
+		container.classList.remove("fixed-top");
+		container.classList.add("fixed-bottom");
+	}
 
 
 	let alertName = alertTemplateClone.querySelector('#alertName');
@@ -44,13 +55,17 @@ export function popAlertActionCart(type, text){
 
 	// .substring(0, -2);
 
-	container.style.zIndex = notificationCount*2 + 10000 + "";
-	let time = setTimeout(function(){
+	container.style.zIndex = notificationCount*1 + 1050;
+	console.log(container.style.zIndex + "!important");
+	if(autoKill)
+	{
+		let time = setTimeout(function(){
 
-		container.classList.add('d-none');
+			container.classList.add('d-none');
 
-	}, 4500);
+		}, 4500);
 
+	}
 	return alertTemplateClone;
 
 }

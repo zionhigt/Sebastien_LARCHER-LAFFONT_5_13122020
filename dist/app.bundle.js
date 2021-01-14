@@ -37,10 +37,15 @@ const settingOfType = {
 		{
 			"text":" est déjà dans votre panier",
 			"bg": "bg-info" 
+		},
+		"cookies":
+		{
+			"text": "Ce site utilise les cookies pour ameliorer l'experience utilisateur <br><a class=\"read-more\" href=\"\"> en savoir plus...</a>",
+			"bg": "bg-dark"
 		}
 	};
 
-function popAlertActionCart(type, text){
+function popAlertActionCart(type, text, autoKill=1){
 	
 	let alertTemplate = document.querySelector('#alertBox');
 	let alertTemplateClone = document.importNode(alertTemplate.content, true);
@@ -48,6 +53,12 @@ function popAlertActionCart(type, text){
 	let container = alertTemplateClone.querySelector('#alertContainer');
 	settingId(container, "" + notificationCount);
 	container.classList.add('show', settingOfType[type]["bg"]);
+
+	if(type == "cookies")
+	{
+		container.classList.remove("fixed-top");
+		container.classList.add("fixed-bottom");
+	}
 
 
 	let alertName = alertTemplateClone.querySelector('#alertName');
@@ -66,13 +77,17 @@ function popAlertActionCart(type, text){
 
 	// .substring(0, -2);
 
-	container.style.zIndex = notificationCount*2 + 10000 + "";
-	let time = setTimeout(function(){
+	container.style.zIndex = notificationCount*1 + 1050;
+	console.log(container.style.zIndex + "!important");
+	if(autoKill)
+	{
+		let time = setTimeout(function(){
 
-		container.classList.add('d-none');
+			container.classList.add('d-none');
 
-	}, 4500);
+		}, 4500);
 
+	}
 	return alertTemplateClone;
 
 }
@@ -461,7 +476,72 @@ function updateOrderCv()
 
 	// Making a order table with all the products
 }
+;// CONCATENATED MODULE: ./js/modules/getProductData.js
+let dataDownloaded = document.createEvent("event");
+dataDownloaded.initEvent("dataisready", true, true);
+
+let data = [];
+
+async function productData()
+{
+	const url = "https://orinoco-cameras.herokuapp.com/api/cameras";
+
+	const response = await fetch(url);
+	return response.json();
+}
+
+let res = productData().then(function(e){
+	if(e.length >= 1)
+	{
+		data = e;
+		document.dispatchEvent(dataDownloaded);
+	}
+}).catch(function(e){
+
+	console.log("ERREUR: \n" + e);
+});
+
+function isIdOfProduct(id)
+{
+	let isOneOfThem = data.map(function(d){return (d._id == id)});
+	if(isOneOfThem.indexOf(true) == -1)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
+
+;// CONCATENATED MODULE: ./js/modules/detectLocalStorage.js
+function storageAvailable(type) {
+    try {
+        var storage = window[type],
+            x = '__storage_test__';
+        storage.setItem(x, x);
+        storage.removeItem(x);
+        return true;
+    }
+    catch(e) {
+        return e instanceof DOMException && (
+            // everything except Firefox
+            e.code === 22 ||
+            // Firefox
+            e.code === 1014 ||
+            // test name field too, because code might not be present
+            // everything except Firefox
+            e.name === 'QuotaExceededError' ||
+            // Firefox
+            e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+            // acknowledge QuotaExceededError only if there's something already stored
+            storage.length !== 0;
+    }
+}
 ;// CONCATENATED MODULE: ./js/modules/cart.js
+
+
 
 
 
@@ -472,9 +552,68 @@ let countItems = [];//Liste des sous totaux
 let totalArticles = [];//Liste des quantité par article 
 let cartTotal = 0;
 
+let cart_storageAvailable = storageAvailable('localStorage') ? true : false;
+
+function initCart()
+{
+	if(cart_storageAvailable)
+	{
+		document.querySelector('body').appendChild(popAlertActionCart("cookies", "", 0));
+		
+		if(localStorage.getItem("orinoco_cameras_totalArticle") != null)
+		{
+
+			totalArticles = JSON.parse(localStorage.getItem("orinoco_cameras_totalArticle"));
+		}
+
+		for(let i in localStorage)
+		{
+
+			if(isIdOfProduct(i) == true)
+			{
+				let article = JSON.parse(localStorage.getItem(i));
+				addArticleIntoCart(article, 0, 0);
+			}
+		}
+		updateLocalStorage();
+	}
+}
+
+
+function updateLocalStorage()
+{
+	if(cart_storageAvailable)
+	{
+		let idsInCart = articlesIntoCart.map(function(p){return p._id});
+
+		for(let i in localStorage)
+		{
+			let storageCurrentId = i;
+			// si la clé du localStorage fait référence à un produit de la gamme
+			// Suprimer le produits du localStorage.
+			if(isIdOfProduct(storageCurrentId) == true)
+			{
+				localStorage.removeItem(storageCurrentId);
+
+			}
+
+		}
+
+		// Ajouter tous les produits contenu dans la panier, dans le localStorage 
+		for(let j in articlesIntoCart)
+		{
+
+			localStorage.setItem(articlesIntoCart[j]._id, JSON.stringify(articlesIntoCart[j]));
+		}
+
+		localStorage.setItem("orinoco_cameras_totalArticle", JSON.stringify(totalArticles));
+	}
+
+}
+
 function buildingCart()
 {
-	let cartView = document.getElementById('cartProducts');
+	const cartView = document.getElementById('cartProducts');
 	let domGroup = [];
 	const validationButton = document.querySelector("#validateOrder");
 	cartView.innerHTML = "";
@@ -485,25 +624,36 @@ function buildingCart()
 		for(let i in articlesIntoCart)
 		{
 			let cardCartTemplateClone = document.importNode(cardCartTemplate.content, true);
+
 			let elementName = cardCartTemplateClone.getElementById('cardCartName');
 			elementName.innerHTML = articlesIntoCart[i].name;
 			elementName.setAttribute('id', "cardCartName_" + i)
+
 			let elementDescription = cardCartTemplateClone.getElementById('cardCartDescription');
 			elementDescription.innerHTML = articlesIntoCart[i].description;
 			elementDescription.setAttribute('id', "cardCartDescription_" + i)
+
 			let elementQuantity = cardCartTemplateClone.getElementById('quantityIncrement');
 			elementQuantity.setAttribute('id', "quantityIncrement_" + i);
+
 			if(articlesIntoCart.indexOf(articlesIntoCart[i]) >= 0)
 			{
-				elementQuantity.value = countItems[articlesIntoCart.indexOf(articlesIntoCart[i])]/articlesIntoCart[i].price*100;
+				if(totalArticles[i])
+				{
+					elementQuantity.value = totalArticles[i];
+				}
+
+				else
+				{
+					elementQuantity.value = 1;
+				}
 
 			}
 
+			
+
 			let elementPrice = cardCartTemplateClone.getElementById('cardCartPrice');
 			elementPrice.setAttribute('id', "cardCartPrice_" + i);
-			elementPrice.innerHTML = "Sous-Total : " + (articlesIntoCart[i].price*elementQuantity.value)/100 + " €";
-
-
 
 			let elementRemoveToCart = cardCartTemplateClone.getElementById('removeToCart');
 			elementRemoveToCart.addEventListener("click", function(e){
@@ -513,6 +663,8 @@ function buildingCart()
 
 
 			});
+			elementPrice.innerHTML = "Sous-Total : " + (articlesIntoCart[i].price*elementQuantity.value)/100 + " €";
+			countItems[articlesIntoCart.indexOf(articlesIntoCart[i])] = parseInt(articlesIntoCart[i].price*elementQuantity.value)/100;
 
 			elementQuantity.addEventListener('change', function(e){
 				while(elementQuantity.value <= 0)
@@ -525,6 +677,7 @@ function buildingCart()
 				countItems[index] = parseInt(articlesIntoCart[i].price*elementQuantity.value)/100;
 				totalArticles[index] = parseInt(elementQuantity.value);
 				upgradeTotal();
+				updateLocalStorage();
 			});
 
 
@@ -538,7 +691,6 @@ function buildingCart()
 	else
 	{
 		let emptyCardMessage = document.createElement('span');
-		// emptyCardMessage.classList.add('font-weight-bold', 'text-center', 'bg-dark', 'text-orinoco');
 		cartView.innerHTML = "<span class=\"font-weight-bold text-center bg-dark text-orinoco my-5 d-block\">Votre panier est vide!</span>";
 		validationButton.disabled = true;
 		$("#cartView").modal("hide");
@@ -546,6 +698,7 @@ function buildingCart()
 
 	}
 
+	upgradeTotal();
 	validationButton.addEventListener("click", updateOrderCv);
 }
 
@@ -557,33 +710,45 @@ function removeItemOnce(article) {
 		totalArticles.splice(index, 1);
 		document.querySelector('body').prepend(popAlertActionCart("delete", article.name));
 		upgradeTotal();
+		updateLocalStorage();
 	}
 }
 
-function addArticleIntoCart(article)
+let test = {}
+
+function addArticleIntoCart(article, update=1, showAlert=1)
 {
-	if(!(articlesIntoCart.includes(article)))
+	
+	let stringsArticlesIntoCard = articlesIntoCart.map(function(a){return JSON.stringify(a)});
+	// Comparaison sur l'objet JSON pour empêcher les conflits d'instances.
+	if(stringsArticlesIntoCard.indexOf(JSON.stringify(article)) == -1)
 	{
 		articlesIntoCart.push(article);
 		countItems.push(parseInt(article.price/100));
-		totalArticles.push(1);
 		buildingCart();
-		document.querySelector('body').prepend(popAlertActionCart("add", article.name));
 		upgradeTotal();
+		if(showAlert)
+		{
 
+			document.querySelector('body').prepend(popAlertActionCart("add", article.name));
+		}
 
 	}
 
 	else
 	{
 		document.querySelector('body').prepend(popAlertActionCart("already", article.name));
-		// jQuery.noConflict();
+
 		setTimeout(function(){
 			$("#cartView").modal('toggle');
 
 		}, 400);
-		// document.querySelector('body').classList.add("modal-open");
 
+
+	}
+	if(update)
+	{
+		updateLocalStorage();
 
 	}
 }
@@ -593,15 +758,27 @@ function upgradeTotal()
 	let initItems = 0;
 	let initArticles = 0;
 
-	console.log(totalArticles);
 
 	for(let i in countItems)
 	{
 		initItems += countItems[i];
+
+		if(totalArticles[i] == undefined)
+		{
+			totalArticles[i] = 1;
+		}
 		initArticles += totalArticles[i];
 	}
 	cartTotal = initItems;
-	document.querySelector("#cartTotal").innerHTML = "Total ("+ initArticles+") : " + initItems + "€";
+	if(initItems)
+	{
+		document.querySelector("#cartTotal").innerHTML = "Total ("+ initArticles+") : " + initItems + "€";
+	}
+	else
+	{
+
+		document.querySelector("#cartTotal").innerHTML = "";
+	}
 }
 
 function getEmpty()
@@ -611,6 +788,7 @@ function getEmpty()
 	totalArticles = []; 
 	cartTotal = 0;
 	upgradeTotal();
+	updateLocalStorage();
 	buildingCart();
 
 }
@@ -719,32 +897,6 @@ async function createAProductCard(productData, id)
     return content;
     // Give card product when it built off
 }
-
-;// CONCATENATED MODULE: ./js/modules/getProductData.js
-let dataDownloaded = document.createEvent("event");
-dataDownloaded.initEvent("dataisready", true, true);
-
-let data = [];
-
-async function productData()
-{
-	const url = "https://orinoco-cameras.herokuapp.com/api/cameras";
-
-	const response = await fetch(url);
-	return response.json();
-}
-
-let res = productData().then(function(e){
-	if(e.length >= 1)
-	{
-		data = e;
-		document.dispatchEvent(dataDownloaded);
-	}
-}).catch(function(e){
-
-	console.log("ERREUR: \n" + e);
-});
-
 
 ;// CONCATENATED MODULE: ./js/modules/mainProductList.js
 
@@ -940,12 +1092,15 @@ btnCart.addEventListener("touchmove", function(e){
 
 
 
+
 window.addEventListener("DOMContentLoaded", function(e){
 	// When Dom is loaded
 	document.addEventListener("dataisready", function(){
 		// Be listening for dataisready event
 		buildCardsDeck();
 		// Be building cards of products
+		initCart();
+	// Initialising cart from localStorage
 
 	});
 

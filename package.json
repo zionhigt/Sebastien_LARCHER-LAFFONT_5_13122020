@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/zionhigt/NodeJsTest#readme",
   "devDependencies": {
+    "jquery": "^3.5.1",
     "webpack": "^5.10.1",
     "webpack-dev-server": "^3.11.0"
   },

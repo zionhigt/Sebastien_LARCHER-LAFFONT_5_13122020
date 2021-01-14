@@ -220,8 +220,12 @@ h3[id^=cardCartName_]::before {
   margin-top: 3px;
 }
 
-.alert {
-  z-index: 10000 !important;
+.alert .read-more {
+  position: relative;
+  z-index: 1051 !important;
+}
+.alert .read-more:hover {
+  color: #e08718;
 }
 
 #progressbar {
