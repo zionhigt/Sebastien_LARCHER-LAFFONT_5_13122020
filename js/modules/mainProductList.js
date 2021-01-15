@@ -6,13 +6,6 @@ export function buildCardsDeck(){
 
   let deck = document.getElementById('deck-cameras');
 
-  // let cloneTemplateView = document.importNode(templateView.content, true);
-
-  // let deck = cloneTemplateView.getElementById('deck');
-  // deck.setAttribute("id", "deck-cameras");
-
-  // let deckTitle = cloneTemplateView.getElementById('productTitle');
-  // deck.appendChild(deckTitle);
   // Be getting for a deck from his template
 
   for(let i in data)

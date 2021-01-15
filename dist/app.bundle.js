@@ -2,6 +2,7 @@
 /******/ 	"use strict";
 
 ;// CONCATENATED MODULE: ./js/modules/variantChoice.js
+// Getting, buildind and return the lense, varnish or colors depend of the app
 function buildVariantChoice(content, parent){
 
   let group = parent;
@@ -75,8 +76,6 @@ function popAlertActionCart(type, text, autoKill=1){
 	{
 		notificationCount = 0;
 	}
-
-	// .substring(0, -2);
 
 	container.style.zIndex = notificationCount*1 + 1050;
 	if(autoKill)
@@ -527,25 +526,6 @@ function productData()
 	});
 	
 }
-productData();
-// let res = productData().then(function(e){
-// 	console.log(JSON.parse(e),"then")
-// 	if(e.status == 200)
-// 	{
-// 		if(e.length >= 1)
-// 		{
-// 			data = e;
-// 			document.dispatchEvent(dataDownloaded);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		console.log(e.status);
-// 	}
-// }).catch(function(e){
-
-// 	console.log(e.satus);
-// });
 
 function isIdOfProduct(id)
 {
@@ -560,6 +540,7 @@ function isIdOfProduct(id)
 	}
 }
 
+productData();
 
 ;// CONCATENATED MODULE: ./js/modules/detectLocalStorage.js
 function storageAvailable(type) {
@@ -961,13 +942,6 @@ function buildCardsDeck(){
 
   let deck = document.getElementById('deck-cameras');
 
-  // let cloneTemplateView = document.importNode(templateView.content, true);
-
-  // let deck = cloneTemplateView.getElementById('deck');
-  // deck.setAttribute("id", "deck-cameras");
-
-  // let deckTitle = cloneTemplateView.getElementById('productTitle');
-  // deck.appendChild(deckTitle);
   // Be getting for a deck from his template
 
   for(let i in data)

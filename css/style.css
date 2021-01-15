@@ -126,15 +126,6 @@ main h2.subligned::after {
   height: 100%;
 }
 
-.hiddeProduct::before {
-  content: "Masquer les détails";
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
 .btn-cart path {
   fill: url(#cartGradient);
 }

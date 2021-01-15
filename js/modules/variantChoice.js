@@ -1,3 +1,4 @@
+// Getting, buildind and return the lense, varnish or colors depend of the app
 export function buildVariantChoice(content, parent){
 
   let group = parent;

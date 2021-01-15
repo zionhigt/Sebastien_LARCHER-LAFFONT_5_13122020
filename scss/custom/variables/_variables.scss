@@ -10,8 +10,8 @@ $custom-cameras: lighten(#37474f, 15%);
 $theme-colors: ();
 $theme-colors: map-merge(
   (
-    "orinoco":            $orinoco,
-    "custom-cameras": 		$custom-cameras
+    "orinoco":          $orinoco,
+    "custom-cameras": 	$custom-cameras
   ),
   $theme-colors
 );

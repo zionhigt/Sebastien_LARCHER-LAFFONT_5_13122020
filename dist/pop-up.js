@@ -1,3 +1,5 @@
+// Make a build of an independant product window
+
 const locationSearch = window.location.search;
 
 async function getProductById(id)

@@ -54,8 +54,6 @@ export function popAlertActionCart(type, text, autoKill=1){
 		notificationCount = 0;
 	}
 
-	// .substring(0, -2);
-
 	container.style.zIndex = notificationCount*1 + 1050;
 	if(autoKill)
 	{

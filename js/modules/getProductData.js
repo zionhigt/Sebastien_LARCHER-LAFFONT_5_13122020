@@ -29,25 +29,6 @@ export function productData()
 	});
 	
 }
-productData();
-// let res = productData().then(function(e){
-// 	console.log(JSON.parse(e),"then")
-// 	if(e.status == 200)
-// 	{
-// 		if(e.length >= 1)
-// 		{
-// 			data = e;
-// 			document.dispatchEvent(dataDownloaded);
-// 		}
-// 	}
-// 	else
-// 	{
-// 		console.log(e.status);
-// 	}
-// }).catch(function(e){
-
-// 	console.log(e.satus);
-// });
 
 export function isIdOfProduct(id)
 {
@@ -62,3 +43,4 @@ export function isIdOfProduct(id)
 	}
 }
 
+productData();

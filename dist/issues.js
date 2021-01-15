@@ -1,3 +1,5 @@
+
+//  Building an error window whith dinamic error code and it does redirection on the one where error is from.
 const locationSearch = window.location.search;
 
 function getIdInURL(param)
