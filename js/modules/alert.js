@@ -18,7 +18,7 @@ const settingOfType = {
 		},
 		"cookies":
 		{
-			"text": "Ce site utilise les cookies pour ameliorer l'experience utilisateur <br><a class=\"read-more\" href=\"\"> en savoir plus...</a>",
+			"text": "Ce site utilise les cookies pour ameliorer l'expérience utilisateur <br><a class=\"read-more\" href=\"\"> en savoir plus...</a>",
 			"bg": "bg-dark"
 		}
 	};

@@ -40,7 +40,7 @@ const settingOfType = {
 		},
 		"cookies":
 		{
-			"text": "Ce site utilise les cookies pour ameliorer l'experience utilisateur <br><a class=\"read-more\" href=\"\"> en savoir plus...</a>",
+			"text": "Ce site utilise les cookies pour ameliorer l'expérience utilisateur <br><a class=\"read-more\" href=\"\"> en savoir plus...</a>",
 			"bg": "bg-dark"
 		}
 	};
@@ -314,7 +314,7 @@ async function sendOrder()
 	
 
 	let bodyRequest = JSON.stringify({
-	 			"contact": customer, 
+	 			"contac": customer, 
 	 			"products": getProductArray()
 	 		});
 	// Making body request
@@ -899,7 +899,7 @@ function getSelectedCardFromTemplate(productData, id)
 	openWindow.addEventListener("click", function(e){
 		e.preventDefault();
 		let popupURL = './pop-up.html?id='+productData._id;
-		window.open(popupURL,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=600, height=auto');
+		window.open(popupURL,'show_unique_product','menubar=no, scrollbars=no, top=100, left=100, width=600, height=auto');
 	});
 
 	let selectedImg = selectedTemplateClone.querySelector('img');
