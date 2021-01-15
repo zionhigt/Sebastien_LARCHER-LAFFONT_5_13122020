@@ -2,6 +2,7 @@ import * as Cart from "./cart.js";
 import * as Send from "./send.js";
 import * as Multi from "./multi.js";
 import * as Cv from "./cv.js";
+import * as End from "./end.js";
 
 
 let submitButton = document.getElementById('nextStep');

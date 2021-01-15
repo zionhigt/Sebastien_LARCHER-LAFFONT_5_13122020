@@ -57,7 +57,6 @@ export function popAlertActionCart(type, text, autoKill=1){
 	// .substring(0, -2);
 
 	container.style.zIndex = notificationCount*1 + 1050;
-	console.log(container.style.zIndex + "!important");
 	if(autoKill)
 	{
 		let time = setTimeout(function(){

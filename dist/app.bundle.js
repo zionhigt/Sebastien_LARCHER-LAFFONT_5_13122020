@@ -79,7 +79,6 @@ function popAlertActionCart(type, text, autoKill=1){
 	// .substring(0, -2);
 
 	container.style.zIndex = notificationCount*1 + 1050;
-	console.log(container.style.zIndex + "!important");
 	if(autoKill)
 	{
 		let time = setTimeout(function(){
@@ -368,6 +367,7 @@ function getProductArray()
 
 
 
+
 let payment_submitButton = document.getElementById('nextStep');
 let payment_prevButton = document.getElementById('previousStep');
 let priceElement = document.getElementById("mainPrice");
@@ -402,7 +402,7 @@ function showPayment()
 	showPageView(2);
 
 	payment_submitButton.removeEventListener("click", cv_nextCallBack);
-	payment_submitButton.removeEventListener("click", End.nextCallBack);
+	payment_submitButton.removeEventListener("click", nextCallBack);
 	payment_prevButton.removeEventListener("click", cv_previousCallBack);
 
 	payment_submitButton.addEventListener("click", payment_nextCallBack);
