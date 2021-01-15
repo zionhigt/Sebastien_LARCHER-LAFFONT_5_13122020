@@ -2,7 +2,6 @@ import * as Cart from "./cart.js";
 import * as Send from "./send.js";
 import * as Multi from "./multi.js";
 import * as Cv from "./cv.js";
-import * as End from "./end.js";
 
 
 let submitButton = document.getElementById('nextStep');
@@ -21,7 +20,6 @@ export function nextCallBack()
 
 	Send.sendOrder().then(function(e){
 		submitButton.classList.add("d-block");
-		End.endOfOrder(e);
 	}).catch(function(er){
 		console.log("Erreur lors de la requête : " + er);
 	})

@@ -308,6 +308,8 @@ function formControl()
 
 
 
+
+
 async function sendOrder()
 {
 	
@@ -324,9 +326,22 @@ async function sendOrder()
 	 		headers: {                           
   				"Content-Type": "application/json"    
  			}             
-	 	});
+	 	}).then(function(response){
+		if(response.status == 201)
+		{
+			response.json().then(function(product){
+				endOfOrder(product);
+			});
+		}
+		else
+		{
+			let errorCode = response.status;
+			let currentAddress = window.location;
+			window.location = "./issues.html?error="+ errorCode+"&from="+currentAddress;
+		}
+	});
 	// Sending the order requeste 
-	return request.json();
+	// return request.json();
 
 }
 
@@ -353,7 +368,6 @@ function getProductArray()
 
 
 
-
 let payment_submitButton = document.getElementById('nextStep');
 let payment_prevButton = document.getElementById('previousStep');
 let priceElement = document.getElementById("mainPrice");
@@ -370,7 +384,6 @@ function payment_nextCallBack()
 
 	sendOrder().then(function(e){
 		payment_submitButton.classList.add("d-block");
-		endOfOrder(e);
 	}).catch(function(er){
 		console.log("Erreur lors de la requête : " + er);
 	})
@@ -389,7 +402,7 @@ function showPayment()
 	showPageView(2);
 
 	payment_submitButton.removeEventListener("click", cv_nextCallBack);
-	payment_submitButton.removeEventListener("click", nextCallBack);
+	payment_submitButton.removeEventListener("click", End.nextCallBack);
 	payment_prevButton.removeEventListener("click", cv_previousCallBack);
 
 	payment_submitButton.addEventListener("click", payment_nextCallBack);
