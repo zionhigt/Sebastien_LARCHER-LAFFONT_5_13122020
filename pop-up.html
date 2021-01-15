@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Camera</title>
+</head>
+	
+<body class="text-center">
+	<div id="waiting" class="loader-waiting">
+		<h1 class="text-center mt-5">Orinoco</h1>
+		<p class="text-center mt-5">Préparation de la vitrine</p>
+		<p class="text-center">
+			<span class="load-spinner--point__0">.</span>
+			<span class="load-spinner--point__1">.</span>
+			<span class="load-spinner--point__2">.</span>
+		</p>
+	</div>
+	<template id="cardBox">
+			<div class=" show overflow-x-hidden" id="selectedCardBox" tabindex="-1" role="dialog" aria-labelledby="selectedProductTitle" aria-hidden="true">
+				<div class="card-dialog" role="document">
+					<div class="card-content">
+						<div class="card-header row px-0 mx-auto w-100">
+							<h1 class="card-title col-12 text-center mb-1" id="selectedCardTitle"></h1>
+
+							<img src="" alt="" class="card-img w-100 col-12 px-0" id="cardImg">
+						</div>
+						<div class="card-body" id="selectedProductBody">
+							<div class="card-text text-dark" id="cardDescription"></div>
+						</div>
+						<div class="card-footer">
+							<div class="card-text font-weight-bold" id="cardPrice"></div>
+							<label id="labelProductVariant" for="#productVariant" class="card-text col-12 text-custom-cameras">Autres objectifs pour cet appareil</label>
+							<ul class="row mb-1 px-0"  id="productVariant">
+
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+	</template>
+
+	<script type="text/javascript" src="./dist/pop-up.js"></script>
+	
+</body>
+</html>

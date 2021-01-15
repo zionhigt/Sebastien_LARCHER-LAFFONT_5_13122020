@@ -23,7 +23,8 @@ export function productData()
 		else
 		{
 			let errorCode = response.status;
-			window.location = "./issues.html?error="+ errorCode;
+			let currentAddress = window.location;
+			window.location = "./issues.html?error="+ errorCode+"&from="+currentAddress;
 		}
 	});
 	

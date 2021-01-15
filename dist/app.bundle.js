@@ -508,7 +508,8 @@ function productData()
 		else
 		{
 			let errorCode = response.status;
-			window.location = "./issues.html?error="+ errorCode;
+			let currentAddress = window.location;
+			window.location = "./issues.html?error="+ errorCode+"&from="+currentAddress;
 		}
 	});
 	
@@ -879,6 +880,14 @@ function getSelectedCardFromTemplate(productData, id)
 	let selectedTitle = selectedTemplateClone.querySelector('#selectedModalTitle');
 	template_settingId(selectedTitle, id);
 	selectedTitle.innerHTML = productData.name;
+
+	let openWindow = selectedTemplateClone.querySelector("#openWindow");
+
+	openWindow.addEventListener("click", function(e){
+		e.preventDefault();
+		let popupURL = './pop-up.html?id='+productData._id;
+		window.open(popupURL,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=600, height=auto');
+	});
 
 	let selectedImg = selectedTemplateClone.querySelector('img');
 	template_settingId(selectedImg, id);

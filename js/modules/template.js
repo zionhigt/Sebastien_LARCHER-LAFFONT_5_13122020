@@ -52,6 +52,14 @@ export function getSelectedCardFromTemplate(productData, id)
 	settingId(selectedTitle, id);
 	selectedTitle.innerHTML = productData.name;
 
+	let openWindow = selectedTemplateClone.querySelector("#openWindow");
+
+	openWindow.addEventListener("click", function(e){
+		e.preventDefault();
+		let popupURL = './pop-up.html?id='+productData._id;
+		window.open(popupURL,'nom_de_ma_popup','menubar=no, scrollbars=no, top=100, left=100, width=600, height=auto');
+	});
+
 	let selectedImg = selectedTemplateClone.querySelector('img');
 	settingId(selectedImg, id);
 	selectedImg.setAttribute('src', productData.imageUrl);

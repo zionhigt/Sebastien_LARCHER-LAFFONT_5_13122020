@@ -10,5 +10,5 @@ function getIdInURL(param)
 document.getElementById("errorCode").innerHTML = getIdInURL("error");
 
 document.getElementById("reload").addEventListener("click", function(){
-	window.location = "./index.html";
+	window.location = getIdInURL("from");
 });
