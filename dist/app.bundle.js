@@ -313,7 +313,7 @@ async function sendOrder()
 	
 
 	let bodyRequest = JSON.stringify({
-	 			"contac": customer, 
+	 			"contact": customer, 
 	 			"products": getProductArray()
 	 		});
 	// Making body request

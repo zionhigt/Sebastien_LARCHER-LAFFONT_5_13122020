@@ -9,7 +9,7 @@ export async function sendOrder()
 	
 
 	let bodyRequest = JSON.stringify({
-	 			"contac": Form.customer, 
+	 			"contact": Form.customer, 
 	 			"products": getProductArray()
 	 		});
 	// Making body request
