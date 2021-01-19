@@ -27,6 +27,7 @@
 		</p>
 	</div>
 	<nav class="navbar navbar-expand-md navbar-dark bg-primary text-center fixed-top mb-5">
+		<h1 class="text-white">Orinocameras</h1>
 		<button id="cartToggle" class="btn btn-dark stretched-link" type="button" data-target="#cartView" data-toggle="modal" aria-expanded="false">
 
 			<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart-fill btn-cart" viewBox="0 0 16 16">
@@ -44,15 +45,14 @@
 
 		</button>
 
-		<h1 class="text-white">Orinocameras</h1>
 	</nav>
 
-	<main role="main" class="container-fluid h-auto px-0 py-1 mx-0 mt-5">
+	<main class="container-fluid h-auto px-0 py-1 mx-0 mt-5">
 		<article class="text-center my-5">
 			<h2 class="mb-5 text-custom-cameras">
 				Le magasin en ligne, 
 				<br>dédié aux appareils photo vintages
-		</h2>
+			</h2>
 			<p class=" my-5 px-3">
 				Nous avons sélectionné pour vous une gamme unique d'appareils photo anciens.
 				<br/>Que vous soyez collectioneur ou simplement passioné de la photographie et de son histoire.
@@ -60,12 +60,12 @@
 			</p>
 		</article>
 
-		<aside class="modal w-100 fade" id="cartView" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<aside class="modal w-100 fade" id="cartView" tabindex="-1" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 
 					<div class="modal-header">
-						<h1 class="modal-title" id="myModalLabel">Mon panier</h1>
+						<h2 class="modal-title" id="myModalLabel">Mon panier</h2>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -87,7 +87,7 @@
 
 						<p id="cartTotal" class="font-weight-bold col-4"></p>
 
-						<button  id="validateOrder" type="button" data-target="#submitOrder" data-toggle="modal" class="btn btn-custom-cameras" disabled="true">
+						<button  id="validateOrder" type="button" data-target="#submitOrder" data-toggle="modal" class="btn btn-custom-cameras" disabled>
 							<span aria-hidden="true">Valider ma commande</span>
 						</button>
 					</div>
@@ -183,7 +183,7 @@
 
 
 		<!-- MultiStep Form -->
-		<aside class="modal fade" id="submitOrder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<aside class="modal fade" id="submitOrder" tabindex="-1" aria-labelledby="myModalLabel">
 			<div class="modal-multi my-1" role="document">
 				<div class="modal-dialog">
 
@@ -241,12 +241,12 @@
 												<thead>
 													<tr>
 														<th colspan="2">Votre commande</th>
-														<tr>
-															<th>Qté</th>
-															<th>Produits</th>
-															<th>P.U</th>
-															<th>Sous-Total</th>
-														</tr>
+													</tr>
+													<tr>
+														<th>Qté</th>
+														<th>Produits</th>
+														<th>P.U</th>
+														<th>Sous-Total</th>
 													</tr>
 												</thead>
 												<tbody>								
@@ -261,7 +261,7 @@
 										</div>
 										<div id="paymentView">
 											<div class="text-center">
-												<h4>Merci de confirmer le paiement de <sapn id="mainPrice"></sapn></h4>
+												<h4>Merci de confirmer le paiement de <span id="mainPrice"></span></h4>
 											</div>
 
 										</div>
@@ -336,9 +336,9 @@
 
 		</div>
 		<div class="credit">
-			<a href="#content"class="mr-3">Vos informations personnelles</a>
-			<a href="#content"class="mr-3">Conditions générales de vente</a>
-			<a href="#content"class="mr-3">Powered by Orinoco © 2020 .Orinoco</a>
+			<a href="#content" class="mr-3">Vos informations personnelles</a>
+			<a href="#content" class="mr-3">Conditions générales de vente</a>
+			<a href="#content" class="mr-3">Powered by Orinoco © 2020 .Orinoco</a>
 
 		</div>
 
